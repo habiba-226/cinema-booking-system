@@ -174,5 +174,5 @@ The **Booking Seats Page** allows users to select seats for a movie, with option
 ---
 
 **Contributors:**
-- Habiba Ahmed (ID: 221002359, Class 9)
-- Seifeldin Walid (ID: 221000519)
+- Habiba Ahmed 
+- Seifeldin Walid 
