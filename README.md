@@ -1,55 +1,178 @@
-#Cinema Booking System
-Functional Requirements:
-User Login and Signup: Implements authentication using a SQL database.
-Browse Movies: Users can view available movies and detailed information.
-Book Tickets: Users can specify ticket type, age, date, and manage their booked tickets.
-Ticket Management: View and manage the details of each booked ticket.
-Select Seats: Users can select seats for a movie (standard or VIP).
-Exit the Application: Gracefully exit the system when done.
-Database Integration (Microsoft SQL Server)
-Database Setup: Uses Microsoft SQL Server for handling the database. To connect SQL to Visual Studio, download the Microsoft.Data.SqlClient package via NuGet by right-clicking on the WinFormApp and selecting Manage NuGet Packages.
-SQL Connection: A connection is established to the loginapp database, where users' login information (username and password) is stored. This database is accessed in both Login.cs and Signup.cs forms.
-Connecting Visual Studio with SQL Server:
-In Visual Studio, open Server Explorer from the View menu and connect your local SQL server to establish a connection with the database.
-Forms Overview
-Form 1: Login Page
-Functionality: Allows existing users to log in by providing valid credentials (username and password).
-Error Handling: If credentials don’t match, a “Login Failed” message is displayed. It also checks that the input fields are not empty.
-SQL Query: Executes a query to check if the credentials exist in the database. Upon successful login, redirects to the homepage (homepage.cs).
-Create Account: If the user does not have an account, they can navigate to the signup page (Signup.cs).
-Form 2: Signup Page
-Functionality: Users can create a new account by entering and confirming their password.
-Validation: Checks if the username and password fields are filled, and ensures the password matches the confirmation field.
-SQL Query: Inserts new user credentials into the database and notifies the user of success or failure.
-Back to Login: Users can return to the login page after creating an account.
-Form 3: Home Page
-Overview: Displays a list of available movies and navigation buttons.
-MoviePanel: A reusable component used to display movie details like title, time, directors, and stars. The “Booking” button leads to the movie booking form.
-MoviePanel Attributes:
+# Cinema Booking System
 
-Title, Time, Directors, Writers, Stars, Poster (Image).
-Form 4: Booking Movie
-Overview: Allows users to book movie tickets by specifying details such as ticket type, age, and date.
-Ticket Management: Users can add, remove, or clear the list of booked tickets.
-Exit: The form provides an exit button to leave the application.
-Navigation: The form includes buttons for navigating to ticket details and seat selection forms.
-Form 5: Ticket Details
-Overview: Displays detailed information about a specific ticket, including movie title, type, age, date, and seat number.
-Random ID Generation: Generates a unique ID for each ticket.
-Classes: Uses classes Ticket and TypeofTicket to store and display ticket data.
-Form 6: Booking Seats
-Overview: Allows users to choose seats for a movie, either standard or VIP.
-Seat Selection: Users can book seats by clicking on buttons representing seat arrangements (front and back seats). The form updates ticket details with the chosen seat.
-Seat Attributes:
+## Functional Requirements
 
-SeatNumber, IsAvailable (whether the seat is booked or not).
-Overall System Workflow
-User logs in or signs up to the system.
-User navigates to the Home Page where they can browse movies.
-User selects a movie and books tickets.
-User manages ticket details, including viewing, adding, or removing tickets.
-User selects seats for a movie (either standard or VIP).
-User exits the application when done.
-Contributors:
-Habiba Ahmed 
-Seifeldin Walid 
+1. **User login and signup** (using SQL database).
+2. **Browse movies** and view movie details.
+3. **Book tickets**, specify the type, age, date, and manage the list of booked tickets.
+4. **View and manage ticket details**.
+5. **Select seats** for a movie.
+6. **Exit the application**.
+
+## Database: Microsoft SQL Server
+
+To use Microsoft SQL in Visual Studio, download `Microsoft.Data.SqlClient` by right-clicking on the WinFormApp, selecting "Manage NuGet Packages," and installing it. You can then add the `Microsoft.Data.SqlClient` using directive in the login and signup forms to implement the database.
+
+The database, `loginapp`, was created in **Microsoft SQL Server Management Studio** and is used for both the `Login.cs` and `Signup.cs` forms. 
+
+### Connecting to SQL Server in Visual Studio
+
+- Open **Server Explorer** from the View menu.
+- Connect the device's SQL server in the **Data Connection** section.
+
+## Application Forms Overview
+
+### 1. Login Page
+
+The **Login Page** allows users to enter their credentials. If the username and password do not match what’s in the database, a "Login Failed!" message is shown.
+
+#### Steps:
+
+1. **Validation**: Ensures username and password textboxes are not empty. If they are, a message box appears: "Fill the blank spaces".
+2. **Database Connection**: Connects to the `loginapp` SQL database.
+3. **Login Query**: Executes an SQL query to validate the username and password.
+   - If no match, "Login Failed!" is displayed.
+   - If a match is found, the login page hides, and the homepage (`homepage.cs`) opens.
+4. **Error Handling**: Displays an error message in case of exceptions.
+
+There is also a **Create Account** button, which redirects to the **Signup Page**.
+
+### 2. Signup Page
+
+The **Signup Page** allows new users to create accounts by providing a username and password.
+
+#### Steps:
+
+1. **Validation**: Ensures none of the fields (Username, Password, Confirm Password) are empty.
+2. **Password Matching**: If the Password and Confirm Password fields do not match, a message box says, "Passwords don’t match."
+3. **Database Insertion**: Inserts the new user record into the `loginapp` database.
+   - If `ExecuteNonQuery()` returns 0, it indicates failure; otherwise, the signup is successful.
+4. **Back to Login**: A button allows users to go back to the login page.
+
+### 3. Home Page
+
+The **Home Page** displays movie panels with the following attributes:
+
+- Movie Title
+- Time
+- Directors
+- Writers
+- Stars
+- Poster Image
+
+Users can navigate to the **Booking Page** to select and book a movie.
+
+### 4. Booking Movie
+
+The **Booking Movie Page** allows users to book movie tickets, manage their booked tickets, and navigate to other forms for ticket details and seat selection.
+
+#### Features:
+
+- Users can specify ticket details (e.g., age, type, and date).
+- Buttons to **Add**, **Remove**, and **Clear** the list of booked tickets.
+- A **Ticket Counter** keeps track of the number of tickets.
+- **Exit** button to leave the application.
+
+### 5. Ticket Details
+
+The **Ticket Details Page** displays detailed information about a specific ticket, such as:
+
+- Ticket ID
+- Movie Title
+- Ticket Type
+- Age
+- Date
+- Seat Number
+
+It also generates a random ticket ID using the `Ticket` class and its child `TypeofTicket` class.
+
+### 6. Booking Seats
+
+The **Booking Seats Page** allows users to select seats for a movie, with options for **standard** and **VIP** seats.
+
+#### Features:
+
+- 4 instance variables, including lists of front and back seats.
+- 8 buttons for different seat arrangements.
+- Methods to retrieve seat information (number, type) and book the seat.
+
+## Class Overview
+
+### MoviePanel
+
+| Variable       | Type    |
+|----------------|---------|
+| _title         | string  |
+| _time          | string  |
+| _directors     | string  |
+| _writers       | string  |
+| _stars         | string  |
+| _poster        | Image   |
+
+#### Properties:
+
+- MovieTitle
+- Time
+- Directors
+- Writers
+- Stars
+- Poster
+
+### TypeofTicket
+
+| Variable        | Type       |
+|-----------------|------------|
+| Age             | int        |
+| Type            | string     |
+| Date            | DateTime   |
+| SeatNumber      | int        |
+
+### Ticket
+
+| Variable  | Type   |
+|-----------|--------|
+| Title     | string |
+| ID        | string |
+
+#### Methods:
+
+- `GenerateID()`: Generates a unique ID for each ticket.
+
+### Seat
+
+| Variable     | Type   |
+|--------------|--------|
+| SeatNumber   | int    |
+| IsAvailable  | bool   |
+
+#### Methods:
+
+- `GetSeatType()`: Returns the type of seat (Standard/VIP).
+- `BookSeat()`: Books the seat based on user selection.
+
+### StandardSeat and VIPSeat
+
+| Variable       | Type   |
+|----------------|--------|
+| SeatNumber     | int    |
+
+#### Methods:
+
+- `GetSeatType()`: Returns whether the seat is standard or VIP.
+
+## System Workflow
+
+1. The user logs in or signs up.
+2. They navigate to the **Home Page**.
+3. The user selects a movie and books a ticket.
+4. They can view and manage ticket details.
+5. The user can remove or clear tickets from the list.
+6. The user selects seats for a movie.
+7. Detailed seat information is displayed.
+8. The user exits the application.
+
+---
+
+**Contributors:**
+- Habiba Ahmed (ID: 221002359, Class 9)
+- Seifeldin Walid (ID: 221000519)
