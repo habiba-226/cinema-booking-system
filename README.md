@@ -1,4 +1,4 @@
-Cinema Booking System
+#Cinema Booking System
 Functional Requirements:
 User Login and Signup: Implements authentication using a SQL database.
 Browse Movies: Users can view available movies and detailed information.
